@@ -1,0 +1,41 @@
+def compute_cost(X, y, w, b, *argv):
+   m, n = X.shape
+
+   loss_sum = 0 
+
+   # Loop over each training example
+   for i in range(m): 
+
+       # First calculate z_wb = w[0]*X[i][0]+...+w[n-1]*X[i][n-1]+b
+       z_wb = 0 
+       # Loop over each feature
+       for j in range(n): 
+           # Add the corresponding term to z_wb
+           z_wb_ij = w[j]*X[i][j] # Your code here to calculate w[j] * X[i][j]
+           z_wb += z_wb_ij # equivalent to z_wb = z_wb + z_wb_ij
+       # Add the bias term to z_wb
+       z_wb += b # equivalent to z_wb = z_wb + b
+
+       f_wb = sigmoid(z_wb) # Your code here to calculate prediction f_wb for a training example
+       loss =  -y[i] * np.log(f_wb) - (1 - y[i]) * np.log(1 - f_wb) # Your code here to calculate loss for a training example
+
+       loss_sum += loss # equivalent to loss_sum = loss_sum + loss
+
+   total_cost = (1 / m) * loss_sum 
+
+   return total_cost
+   
+   
+   '''
+   m = X.shape[0]
+    cost = 0.0
+    for i in range(m):
+        z_i = np.dot(X[i],w) + b
+        f_wb_i = sigmoid(z_i)
+        cost +=  -y[i]*np.log(f_wb_i) - (1-y[i])*np.log(1-f_wb_i)
+             
+    cost = cost / m
+    w_tmp = np.array([1,1])
+    b_tmp = -3
+    print(compute_cost_logistic(X_train, y_train, w_tmp, b_tmp))
+    '''
